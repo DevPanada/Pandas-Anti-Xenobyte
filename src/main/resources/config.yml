@@ -1,0 +1,10 @@
+# Allows debug messages to log to console.
+allow-debug-messages: false
+
+# Sends staff alerts whenever a player flags Anti-Xenobyte.
+send-staff-alerts: true
+
+# Which modules should be enabled/disabled.
+modules:
+  creative-give: true
+  cache-give: true

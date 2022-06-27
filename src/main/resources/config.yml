@@ -8,3 +8,4 @@ send-staff-alerts: true
 modules:
   creative-give: true
   cache-give: true
+  malsis-doors: true

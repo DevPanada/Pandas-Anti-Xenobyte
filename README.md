@@ -12,6 +12,8 @@ Please note that this plugin has been tested on Thermos specifically, if you com
 PAX supports the following modules:
   - CreativeGive
   - CacheGive
+  - MalsisDoors
+  - MalsisDoors (Radius)
 
 ## I need support!
 Feel free to contact me on my discord.

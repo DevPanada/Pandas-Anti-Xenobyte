@@ -98,7 +98,6 @@ public class PacketHandler {
                                 @Override
                                 public void run() {
                                     radiusMalsisDoorDetect.remove(playerUuid);
-                                    System.out.println("Player has been cleared.");
                                 }
                             }.runTaskLater(PAX.plugin, 20 * 10);
                         }

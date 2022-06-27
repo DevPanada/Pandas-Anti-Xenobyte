@@ -16,6 +16,7 @@ public class Configuration {
     public static boolean allowStaffAlerts;
 
     public static boolean enableCreativeGiveModule;
+    public static boolean enableCacheGiveModule;
 
     public static void load() {
         File dataFolder = new File(dataPath);
@@ -26,5 +27,6 @@ public class Configuration {
         allowDebugMessages = config.getBoolean("allow-debug-messages", false);
         allowStaffAlerts = config.getBoolean("send-staff-alerts", true);
         enableCreativeGiveModule = config.getBoolean("modules.creative-give", true);
+        enableCacheGiveModule = config.getBoolean("modules.cache-give", true);
     }
 }

@@ -53,7 +53,7 @@ public class PacketHandler {
                 if (packetName.equalsIgnoreCase("CUSTOM_PAYLOAD")) {
                     StructureModifier<Object> a = packet.getModifier();
 
-                    if (a.getValues().get(1).equals(60) && a.getValues().get(2).getClass().getName().equalsIgnoreCase("[b")) {
+                    if (Configuration.enableCacheGiveModule && a.getValues().get(1).equals(60) && a.getValues().get(2).getClass().getName().equalsIgnoreCase("[b")) {
                         Location loc = player.getEyeLocation();
                         Vector v = loc.getDirection().normalize();
                         for (int i = 1; i <= 1000; i++) {

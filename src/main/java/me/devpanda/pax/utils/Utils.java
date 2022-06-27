@@ -49,6 +49,7 @@ public class Utils {
      * Requires configuration option "send-staff-alerts" to be true.
      */
     public static void alertStaff(final OfflinePlayer offender, final XenobytePacket packet) {
+        if (!Configuration.allowStaffAlerts) return;
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
             if (p.hasPermission("pax.alert")) p.sendMessage(colorize(prefix+" &e"+offender.getName()+" &7has been flagged for &e"+packet.cheatName+"&7."));
         }

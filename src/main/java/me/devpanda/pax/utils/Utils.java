@@ -55,6 +55,16 @@ public class Utils {
         }
     }
 
+    /**
+     * Sends a staff alert to all online players with permission "pax.alert".
+     */
+    public static void alertStaffCustom(final Object o) {
+        if (!Configuration.allowStaffAlerts) return;
+        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+            if (p.hasPermission("pax.alert")) p.sendMessage(colorize(prefix+" "+o.toString()));
+        }
+    }
+
     public static String colorize(Object o) {
         return ChatColor.translateAlternateColorCodes('&', o.toString());
     }

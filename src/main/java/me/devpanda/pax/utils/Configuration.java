@@ -17,6 +17,8 @@ public class Configuration {
 
     public static boolean enableCreativeGiveModule;
     public static boolean enableCacheGiveModule;
+    public static boolean enableMalsisDoorModule;
+    public static boolean enableCarpenterUseModule;
 
     public static void load() {
         File dataFolder = new File(dataPath);
@@ -28,5 +30,7 @@ public class Configuration {
         allowStaffAlerts = config.getBoolean("send-staff-alerts", true);
         enableCreativeGiveModule = config.getBoolean("modules.creative-give", true);
         enableCacheGiveModule = config.getBoolean("modules.cache-give", true);
+        enableMalsisDoorModule = config.getBoolean("modules.malsis-door", true);
+        enableCarpenterUseModule = config.getBoolean("modules.carpenter-use", true);
     }
 }

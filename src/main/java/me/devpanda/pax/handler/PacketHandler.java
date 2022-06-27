@@ -15,19 +15,23 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class PacketHandler {
 
     public static HashMap<String, XenobytePacket> packets = new HashMap<>();
+    public static HashMap<String, Integer> radiusMalsisDoorDetect = new HashMap<>();
 
     public static void load() {
         packets.put("CreativeGive", new XenobytePacket("CreativeGive", XenobytePacket.Severity.HIGH));
         packets.put("CacheGive", new XenobytePacket("CacheGive", XenobytePacket.Severity.HIGH));
+        packets.put("MalsisDoor", new XenobytePacket("MalsisDoor", XenobytePacket.Severity.MEDIUM));
 
         startListener();
     }
@@ -52,6 +56,7 @@ public class PacketHandler {
 
                 if (packetName.equalsIgnoreCase("CUSTOM_PAYLOAD")) {
                     StructureModifier<Object> a = packet.getModifier();
+                    if (a.getValues().size() < 2) return;
 
                     if (Configuration.enableCacheGiveModule && a.getValues().get(1).equals(60) && a.getValues().get(2).getClass().getName().equalsIgnoreCase("[b")) {
                         Location loc = player.getEyeLocation();
@@ -69,6 +74,38 @@ public class PacketHandler {
                         return;
                     }
 
+                    if (Configuration.enableMalsisDoorModule && a.getValues().get(1).equals(64)) {
+                        e.setCancelled(true);
+                        String playerUuid = player.getUniqueId().toString();
+                        if (radiusMalsisDoorDetect.containsKey(playerUuid)) {
+                            radiusMalsisDoorDetect.put(playerUuid, radiusMalsisDoorDetect.get(playerUuid)+1);
+                            if (radiusMalsisDoorDetect.get(playerUuid) >= 3) {
+                                if (!player.isOnline()) return;
+                                new BukkitRunnable() {
+                                    @Override
+                                    public void run() {
+                                        if (!player.isOnline()) return;
+                                        player.kickPlayer(Utils.colorize(Utils.prefix+" &cYou have been automatically kicked for &cHacked Client Detected&7."));
+                                        Utils.debug("&c"+player.getName()+" &7has been automatically kicked for: &cRadius Malsis Door Hack (&ex"+radiusMalsisDoorDetect.get(playerUuid)+"&7)!");
+                                    }
+                                }.runTask(PAX.plugin);
+                                return;
+                            }
+                        } else radiusMalsisDoorDetect.put(playerUuid, 1);
+                        Utils.alertStaff(player, packets.get("MalsisDoor"));
+                        if (!radiusMalsisDoorDetect.containsKey(playerUuid)) {
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    radiusMalsisDoorDetect.remove(playerUuid);
+                                    System.out.println("Player has been cleared.");
+                                }
+                            }.runTaskLater(PAX.plugin, 20 * 10);
+                        }
+                        return;
+                    }
+
+                    // TODO: Carpenter's use module
                 }
             }
         });

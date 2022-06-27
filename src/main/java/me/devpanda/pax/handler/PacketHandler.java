@@ -86,7 +86,7 @@ public class PacketHandler {
                                     public void run() {
                                         if (!player.isOnline()) return;
                                         player.kickPlayer(Utils.colorize(Utils.prefix+" &cYou have been automatically kicked for &cHacked Client Detected&7."));
-                                        Utils.debug("&c"+player.getName()+" &7has been automatically kicked for: &cRadius Malsis Door Hack (&ex"+radiusMalsisDoorDetect.get(playerUuid)+"&7)!");
+                                        Utils.alertStaffCustom("&c"+player.getName()+" &7has been automatically kicked for: &cRadius Malsis Door Hack (&ex"+radiusMalsisDoorDetect.get(playerUuid)+"&7)!");
                                     }
                                 }.runTask(PAX.plugin);
                                 return;
